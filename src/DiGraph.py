@@ -1,5 +1,6 @@
 from GraphInterface import GraphInterface
 from Node import Node
+import json
 
 
 class DiGraph(GraphInterface):
@@ -120,3 +121,49 @@ class DiGraph(GraphInterface):
         self._mc += 1
         self._edges_counter -= 1
         return True
+
+    @staticmethod
+    def save_to_json(graph: GraphInterface, file_name: str) -> bool:
+        """
+
+        """
+        try:
+            with open(file_name, "w") as f:
+                nodes = []
+                edges = []
+                for n_id, n_obj in enumerate(graph.get_all_v()):
+                    nodes.append({"id": n_id, "pos": ",".join(n_obj.pos)})
+
+                    for dest_id, w in graph.all_out_edges_of_node(n_id).items():
+                        edges.append({"src": n_id, "dest": dest_id, "w": w})
+
+                j = {"Edges": edges, "Nodes": nodes}
+
+                json.dump(j, f, indent=4)
+                return True
+
+        except (FileNotFoundError, TypeError):
+            return False
+
+    @staticmethod
+    def load_from_json(file_name: str):
+        """
+
+        """
+        try:
+            with open(file_name, "r") as f:
+                d = json.load(f)
+                graph = DiGraph()
+                for node in d["Nodes"]:
+                    pos = node.get('pos')
+                    pos = tuple(pos.split(',')) if pos else None
+                    graph.add_node(node["id"], pos)
+
+                for edge in d["Edges"]:
+                    graph.add_edge(edge["src"], edge["dest"], edge["w"])
+
+                return graph
+
+        except (FileNotFoundError, json.decoder.JSONDecodeError) as e:
+            print(e)
+            return None
