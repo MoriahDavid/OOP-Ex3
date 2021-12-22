@@ -7,8 +7,12 @@ from DiGraph import DiGraph
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self, graph:GraphInterface):
-        self._graph = graph
+    def __init__(self, graph: GraphInterface=None):
+        if graph is not None:
+            self._graph = graph
+
+        else:
+            self._graph = DiGraph()
 
     def get_graph(self) -> GraphInterface:
         """

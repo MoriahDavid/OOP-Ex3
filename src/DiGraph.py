@@ -131,7 +131,7 @@ class DiGraph(GraphInterface):
             with open(file_name, "w") as f:
                 nodes = []
                 edges = []
-                for n_id, n_obj in enumerate(graph.get_all_v()):
+                for n_id, n_obj in graph.get_all_v().items():
                     nodes.append({"id": n_id, "pos": ",".join(n_obj.pos)})
 
                     for dest_id, w in graph.all_out_edges_of_node(n_id).items():
@@ -167,3 +167,6 @@ class DiGraph(GraphInterface):
         except (FileNotFoundError, json.decoder.JSONDecodeError) as e:
             print(e)
             return None
+
+    def __repr__(self):
+        return f"Graph: |V|={self.v_size()} , |E|={self.e_size()}"
