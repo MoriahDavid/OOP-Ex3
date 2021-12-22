@@ -1,3 +1,4 @@
+import random
 from typing import List
 from queue import PriorityQueue
 
@@ -5,9 +6,10 @@ from GraphInterface import GraphInterface
 from GraphAlgoInterface import GraphAlgoInterface
 from DiGraph import DiGraph
 
+
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self, graph: GraphInterface=None):
+    def __init__(self, graph: GraphInterface = None):
         if graph is not None:
             self._graph = graph
 
@@ -64,19 +66,29 @@ class GraphAlgo(GraphAlgoInterface):
         More info:
         https://en.wikipedia.org/wiki/Dijkstra's_algorithm
         """
-        weights , pre_nodes = self._dijkstra(id1)
+        # Check if the nodes exists
+        g_nodes = self._graph.get_all_v().keys()
+        if id1 not in g_nodes or id2 not in g_nodes:
+            return float('inf'), []
 
-        if weights[id2] == float('inf'): # there is no path from id1 to id2
+        weights, pre_nodes = self._dijkstra(id1)
+
+        if weights[id2] == float('inf'):  # there is no path from id1 to id2
             return float('inf'), []
 
         # Gets the path nodes
-        path = [id2]
-        i = id2
-        while i != id1:
+        path = self._get_path(id1, id2, pre_nodes)
+
+        return weights[id2], path
+
+    def _get_path(self, src, dst, pre_nodes: dict) -> list:
+        path = [dst]
+        i = dst
+        while i != src:
             i = pre_nodes[i]
             path.insert(0, i)
 
-        return weights[id2], path
+        return path
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
         """
@@ -84,6 +96,22 @@ class GraphAlgo(GraphAlgoInterface):
         :param node_lst: A list of nodes id's
         :return: A list of the nodes id's in the path, and the overall distance
         """
+        if len(node_lst) == 0:
+            return [], float('inf')
+
+        rand_node = random.choice(node_lst)
+        visited = [rand_node]
+        path = [rand_node]
+        total_w = 0
+        while len(visited) < len(node_lst):
+            weights, prev_nodes = self._dijkstra(rand_node)
+            next_node = min(filter(lambda x: x in node_lst and x not in visited, weights), key=weights.get)
+            total_w += weights.get(next_node)
+            visited.append(next_node)
+            path.extend(self._get_path(rand_node, next_node, prev_nodes)[1:])
+            rand_node = next_node
+
+        return path, total_w
 
     def centerPoint(self) -> (int, float):
         """
@@ -98,8 +126,8 @@ class GraphAlgo(GraphAlgoInterface):
             for n_dst in self._graph.get_all_v().keys():
                 if n_src == n_dst:
                     continue
-                if weights[n_dst] == float('inf'): # There is no path from src to dst (graph is not connected)
-                    return # TODO: Something
+                if weights[n_dst] == float('inf'):  # There is no path from src to dst (graph is not connected)
+                    return  # TODO: Something
                 if weights[n_dst] > max_w:
                     max_w = weights[n_dst]
 
@@ -146,9 +174,10 @@ class GraphAlgo(GraphAlgoInterface):
 def main():
     g = DiGraph()
     a = GraphAlgo(g)
-    a.load_from_json("../data/A5.json")
-    print(a.shortest_path(0,20))
-    print(a.centerPoint())
+    a.load_from_json("../data/A1.json")
+    # print(a.shortest_path(0,20))
+    # print(a.centerPoint())
+    print(a.TSP([1, 7, 10]))
 
 
 if __name__ == "__main__":
