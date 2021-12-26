@@ -82,11 +82,13 @@ class GraphAlgo(GraphAlgoInterface):
         return weights[id2], path
 
     def _get_path(self, src, dst, pre_nodes: dict) -> list:
-        path = [dst]
+        path = [src]
         i = dst
         while i != src:
+            path.insert(1, i)
+            if pre_nodes[i] == -1:
+                break
             i = pre_nodes[i]
-            path.insert(0, i)
 
         return path
 
@@ -142,22 +144,24 @@ class GraphAlgo(GraphAlgoInterface):
         weights = {}
         pre_node = {}
         visited = []
-        for n in self._graph.get_all_v().keys():
+        all_nodes = self._graph.get_all_v().keys()
+        for n in all_nodes:
             weights[n] = float('inf')
             pre_node[n] = -1
+            q.put((float('inf'), n))
 
         q.put((0, src))
 
-        while not q.empty():
+        while len(visited) < len(all_nodes):
             node_w, node = q.get()
-            visited.append(node)
+            visited.append(node) # TODO: Verify its work well
             for nei_id, nei_w in self._graph.all_out_edges_of_node(node).items():
-                if nei_w not in visited:
+                if nei_id not in visited:
                     alt = node_w + nei_w
                     if alt < weights[nei_id]:
-                        q.put((alt, nei_id))
                         weights[nei_id] = alt
                         pre_node[nei_id] = node
+                        q.put((alt, nei_id))
 
         return weights, pre_node
 
@@ -168,16 +172,16 @@ class GraphAlgo(GraphAlgoInterface):
         Otherwise, they will be placed in a random but elegant manner.
         @return: None
         """
-        raise NotImplementedError
+        # raise NotImplementedError
 
 
 def main():
     g = DiGraph()
     a = GraphAlgo(g)
     a.load_from_json("../data/A1.json")
-    # print(a.shortest_path(0,20))
+    print(a.shortest_path(0,10))
     # print(a.centerPoint())
-    print(a.TSP([1, 7, 10]))
+    print(a.TSP([1, 5, 10]))
 
 
 if __name__ == "__main__":
