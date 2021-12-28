@@ -6,22 +6,13 @@
 
 ### 🔶 Main Classes:
 
-#### :black_medium_square: BaseNodeData
-On this class we save for every node: key, tag, info, weight, location. <br />
+#### :black_medium_square: Node
+On this class we save for every node: key, location. <br />
 We create sets and gets methods. <br />
 
-#### :black_medium_square: BaseEdgeData
-On this class we save for every edge: tag, info, source-node, destination-node, weight. <br />
-We create sets and gets methods.
-
-#### :black_medium_square: BaseGeoLocation
-In this class the X, Y, Z coordinates are displayed. <br />
-The instruction was that Z is always zero. <br />
-We have gets-methods in this class. <br />
-
-#### :black_medium_square: BaseDirectedWeightedGraph
+#### :black_medium_square: Digraph
 This class represents our directed weighted graph. <br />
-We create two HashMaps in HashMap and one regular HashMap: <br />
+We create two dict in dict and one regular dict: <br />
 
 The first is -edges_src- represents the edges from source to destination. <br />
 For every node-key from source, we keep in internal HashMap the node-key from dest and the appropriate edge (from src to dest). <br />
@@ -34,7 +25,7 @@ The first one is -nodes- represents our nodes on the graph. <br />
 In this class we implement these methods: transpose, getNode, getEdge, addNode, connect, nodeIter, edgeIter, removeNode, removeEdgesForNode, rempveEdge, nodeSize, edgeSize, getMC. <br />
 We also made three classes for Iterator: nodeIterator, edgeIterator- for specific node and AllEdgesIterator- for all the nodes on the graph. <br />
 
-#### :black_medium_square: BaseDirectedWeightedGraphAlgo
+#### :black_medium_square: GraphAlgo
 In this class we have the main algorithms for graph. <br />
 The methods: <br />
 
@@ -97,14 +88,12 @@ In this GUI we can see the graph and modified it. every node has its key and eve
    Clear Marked Nodees       |                              |
    Add all for TSP    |   Select all the nodes for TSP algorithm |
    Remove all for TSP |   Remvoe selection for all nodes for TSP algorithm      |
-   Enable Drag Nodes  |    Enable to move node possition    | 
-   Show Edges Weight  |   Hide/how the weight               | 
    
    
    
    **Algorithms Menu**      | Explain                       |
 -------------- | -------------------------------------------|
-   Shorted Path  |    Run the algorithm between two chosen nodes in the graph and displays this path      |
+   Shortest Path  |    Run the algorithm between two chosen nodes in the graph and displays this path      |
    Center       |     Run the algorithm and displays the center node                       |
    TSP          |    Run the algorithm in order to find the shortest path for all the nodes        |
    
