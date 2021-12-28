@@ -1,7 +1,7 @@
 ## :wavy_dash: :white_medium_small_square: :white_small_square: Directed Weighted Graphs - Python :white_small_square: :white_medium_small_square: :wavy_dash:
 
 
-### **This project made for directed weighted graphs algorithms and implements graphic user interface. ** <br />
+### **This project made for directed weighted graphs algorithms and implements graphic user interface.** <br />
 <br />
 
 ### 🔶 Main Classes:
