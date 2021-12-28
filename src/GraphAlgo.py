@@ -108,6 +108,8 @@ class GraphAlgo(GraphAlgoInterface):
         while len(visited) < len(node_lst):
             weights, prev_nodes = self._dijkstra(rand_node)
             next_node = min(filter(lambda x: x in node_lst and x not in visited, weights), key=weights.get)
+            if weights.get(next_node) == float('inf'):
+                return [], float('inf')
             total_w += weights.get(next_node)
             visited.append(next_node)
             path.extend(self._get_path(rand_node, next_node, prev_nodes)[1:])
@@ -129,7 +131,7 @@ class GraphAlgo(GraphAlgoInterface):
                 if n_src == n_dst:
                     continue
                 if weights[n_dst] == float('inf'):  # There is no path from src to dst (graph is not connected)
-                    return  # TODO: Something
+                    return -1, float('inf')
                 if weights[n_dst] > max_w:
                     max_w = weights[n_dst]
 
@@ -154,7 +156,9 @@ class GraphAlgo(GraphAlgoInterface):
 
         while len(visited) < len(all_nodes):
             node_w, node = q.get()
-            visited.append(node) # TODO: Verify its work well
+            if node in visited:
+                continue
+            visited.append(node)
             for nei_id, nei_w in self._graph.all_out_edges_of_node(node).items():
                 if nei_id not in visited:
                     alt = node_w + nei_w

@@ -131,11 +131,11 @@ class DiGraph(GraphInterface):
             with open(file_name, "w") as f:
                 nodes = []
                 edges = []
-                for n_id, n_obj in graph.get_all_v().items():
-                    nodes.append({"id": n_id, "pos": ",".join(n_obj.pos)})
+                for n_obj in graph.get_all_v().values():
+                    nodes.append({"id": n_obj.n_id, "pos": ",".join(map(str, n_obj.pos))})
 
-                    for dest_id, w in graph.all_out_edges_of_node(n_id).items():
-                        edges.append({"src": n_id, "dest": dest_id, "w": w})
+                    for dest_id, w in graph.all_out_edges_of_node(n_obj.n_id).items():
+                        edges.append({"src": n_obj.n_id, "dest": dest_id, "w": w})
 
                 j = {"Edges": edges, "Nodes": nodes}
 
@@ -155,8 +155,8 @@ class DiGraph(GraphInterface):
                 d = json.load(f)
                 graph = DiGraph()
                 for node in d["Nodes"]:
-                    pos = node.get('pos')
-                    pos = tuple(pos.split(',')) if pos else None
+                    pos = node.get('pos', None)
+                    pos = tuple(float(v) for v in pos.split(',')) if pos else None
                     graph.add_node(node["id"], pos)
 
                 for edge in d["Edges"]:
