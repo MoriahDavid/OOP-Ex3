@@ -8,7 +8,6 @@
 
 #### :black_medium_square: Node
 On this class we save for every node: key, location. <br />
-We create sets and gets methods. <br />
 
 #### :black_medium_square: Digraph
 This class represents our directed weighted graph. <br />
@@ -22,21 +21,17 @@ We made this method in order to makes some methods easier to implements. <br />
 In addition we creats regular dict -nodes- that represents the nodes on this graph. <br />
 The first one is -nodes- represents our nodes on the graph. <br />
 
-In this class we implement these methods: transpose, getNode, getEdge, addNode, connect, nodeIter, edgeIter, removeNode, removeEdgesForNode, rempveEdge, nodeSize, edgeSize, getMC. <br />
-We also made three classes for Iterator: nodeIterator, edgeIterator- for specific node and AllEdgesIterator- for all the nodes on the graph. <br />
+In this class we implement these methods: get_edge, add_node, add_egde, remove_node, remove_edge, size_v, size_e, get_mc. <br />
 
 #### :black_medium_square: GraphAlgo
 In this class we have the main algorithms for graph. <br />
 The methods: <br />
 
-**getGraph-** Return the graph. <br />
+**get_graph-** Return the graph. <br />
 **Dijkstra-** Dijkstra's algorithm found the shortest path between two given nodes. Dijkstra algorithm- https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm <br />
-**shortestPath-** Return list that represents the shortest path between two nodes. In this method we use the Dijkstra algorithm. <br />
-**center-** Checks for every node who is the furthest node (with the highest weight) and save its weight. After that it return the node with the smallest weight. <br />
-**tsp-** Return a list that represents the shortest path (with the smallest weight)by using greedy algorithm. We reset the nodes tag to zero. It start by choosing random node and every time, we search for the closest node from this node with tag 0. When we find the closest node we change its tag to 1 and add this node to a new list. We will continue to do this as long as there is a node with data 0. If the algorithms cant find a node with tag 0 --> going back one node. Return the new list. <br />
-**pathWeight-** Return the total weight of a path (represents with list). <br />
-**getRandomNode-** Return node in random. <br />
-**closestNode-** Return the closest node to some node by passing all the nodes in the list and calculate the total weight. <br />
+**shortestPath-** Return list that represents the shortest path between two nodes and the path lenght. In this method we use the Dijkstra algorithm. <br />
+**center-** Checks for every node who is the furthest node (with the highest weight) and save its weight. After that it return the node with the smallest weight and the weight. <br />
+**tsp-** Return a list that represents the shortest path (with the smallest weight)by using greedy algorithm. It start by choosing random node and every time, we search for the closest node from this node that not visited yet. When we find the closest node we add this node to a new list. We will continue to do this as long as there is a node that not visited. Return the new list. and the lenght <br />
 
  <br />
 
@@ -47,16 +42,16 @@ We run preformes tests to the algorithms. for every algorithm test we define 15 
 
 Graph          | Load        | Save | Shorted path | Center  | TSP |
 -------------- | ------------ | -----|-----------| --------|-----|
-   A0          |        1 ms  |       | 1 ms    |    1 ms   |  15 ms |
-   A1          |      1 ms    |       |1 ms      |   15 ms  | 1 ms |
-   A2          |         1 ms |       |15 ms     | 15 ms    |    31 ms |
-   A3          |        1 ms  |       | 1 ms    |    62 ms |  46 ms |
-   A4          |        1 ms  |       | 1 ms    |    31 ms |  46 ms |
-   A5          |        1 ms  |       | 1 ms    |    62 ms |  62 ms |
-   1000 nodes  |       15 ms  |       |234 ms   | 3,078 ms |         |
-   10,000 nodes|     393 ms   |       |28,788 ms |Timed Out|Timed Out|
-   100,000 nodes|    12,649 ms |      |           |Timed Out|Timed Out|
-   1,000,000 nodes| Timed Out|       |Timed Out  |Timed Out| Timed Out |
+   A0          |          ms  |       | 1 ms    |    1 ms   |  15 ms |
+   A1          |        ms    |       |1 ms      |   15 ms  | 1 ms |
+   A2          |           ms |       |15 ms     | 15 ms    |    31 ms |
+   A3          |          ms  |       | 1 ms    |    62 ms |  46 ms |
+   A4          |          ms  |       | 1 ms    |    31 ms |  46 ms |
+   A5          |          ms  |       | 1 ms     |    62 ms |  62 ms |
+   1000 nodes  |          ms  |       |234 ms    | 3,078 ms |Timed Out|
+   10,000 nodes|         ms   |       |28,788 ms |Timed Out|Timed Out|
+   100,000 nodes|          ms |       |Timed Out  |Timed Out|Timed Out|
+   1,000,000 nodes|           |       |Timed Out  |Timed Out| Timed Out |
 
 <br />
 
@@ -67,8 +62,8 @@ In this GUI we can see the graph and modified it. every node has its key and eve
 <br />
 
 **Download-** for downloading clone the repo <br />
-**Run-** java -jar Ex2.jar {graph_json_path}. <br />
-* Can run example files form folder data (G1\G2\G3): "java -jar Ex2.jar Data/G1.json" <br />
+**Run-** python3 Ex3.py {graph_json_path}. (if the input is empty it's open the graph A0.json)<br />
+* Can run graph example files from folder data: "python3 Ex3.py ../data/G1.json" <br />
 
 **Use-** explain about the menu on the GUI: <br />
 
