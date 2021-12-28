@@ -15,11 +15,11 @@ This class represents our directed weighted graph. <br />
 We create two dict in dict and one regular dict: <br />
 
 The first is -edges_src- represents the edges from source to destination. <br />
-For every node-key from source, we keep in internal HashMap the node-key from dest and the appropriate edge (from src to dest). <br />
+For every node-key from source, we keep in internal dict the node-key from dest and the appropriate edge (from src to dest). <br />
 The second is -edges_dest- represents edges from destination to source. <br />
-For every node-key from destination, we keep in internal HashMap the node-key from source and the appropriate edge (from dest to source). <br />
+For every node-key from destination, we keep in internal dict the node-key from source and the appropriate edge (from dest to source). <br />
 We made this method in order to makes some methods easier to implements. <br />
-In addition we creats regular HashMap -nodes- that represents the nodes on this graph. <br />
+In addition we creats regular dict -nodes- that represents the nodes on this graph. <br />
 The first one is -nodes- represents our nodes on the graph. <br />
 
 In this class we implement these methods: transpose, getNode, getEdge, addNode, connect, nodeIter, edgeIter, removeNode, removeEdgesForNode, rempveEdge, nodeSize, edgeSize, getMC. <br />
