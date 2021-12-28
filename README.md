@@ -96,7 +96,6 @@ In this GUI we can see the graph and modified it. every node has its key and eve
 <br />
 
 ### 🔶 Tests:
-The project has been checked by Junit tests, manual GUI test and preformance tests. <br />
-We also implement graph generator class that creats graph with given parameters.
+The project has been checked by unittests, manual GUI test and preformance tests. <br />
 <br />
 
