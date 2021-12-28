@@ -46,17 +46,17 @@ We run preformes tests to the algorithms. for every algorithm test we define 15 
 <br />
 
 Graph          | Load        | Save | Shorted path | Center  | TSP |
--------------- | ------------ | --|-----------| --------|-----|
-   A0          |        1 ms  |     | 1 ms    |    1 ms |  16 ms |
-   A1          |      1 ms    |   |1 ms       |   1 ms  | 15 ms |
-   A2          |         1 ms |    |1 ms      |16 ms    |    16 ms |
-   A3          |        1 ms  |     | 1 ms    |    1 ms |  16 ms |
-   A4          |        1 ms  |     | 1 ms    |    1 ms |  16 ms |
-   A5          |        1 ms  |     | 1 ms    |    1 ms |  16 ms |
-   1000 nodes  |       15 ms  |     |125 ms   | 3,078 ms |2,275 ms |
-   10,000 nodes|     393 ms   |   |548 ms     |Timed Out|Timed Out|
-   100,000 nodes|    12,649 ms |   |  32,570 ms|Timed Out|Timed Out|
-   1,000,000 nodes  | Timed Out|  |Timed Out  |Timed Out| Timed Out |
+-------------- | ------------ | -----|-----------| --------|-----|
+   A0          |        1 ms  |       | 1 ms    |    1 ms   |  15 ms |
+   A1          |      1 ms    |       |1 ms      |   15 ms  | 1 ms |
+   A2          |         1 ms |       |15 ms     | 15 ms    |    31 ms |
+   A3          |        1 ms  |       | 1 ms    |    62 ms |  46 ms |
+   A4          |        1 ms  |       | 1 ms    |    31 ms |  46 ms |
+   A5          |        1 ms  |       | 1 ms    |    62 ms |  62 ms |
+   1000 nodes  |       15 ms  |       |234 ms   | 3,078 ms |         |
+   10,000 nodes|     393 ms   |       |28,788 ms |Timed Out|Timed Out|
+   100,000 nodes|    12,649 ms |      |           |Timed Out|Timed Out|
+   1,000,000 nodes| Timed Out|       |Timed Out  |Timed Out| Timed Out |
 
 <br />
 
@@ -82,13 +82,8 @@ In this GUI we can see the graph and modified it. every node has its key and eve
 
 **Graph Menu**     | Explain                                   | 
 -------------- | -------------------------------------------|                               
-   Add Node  |      Add node to the graph                   | 
-   Add Edge  |    Add edge to the graph                     | 
    Clear Marked Edges       |                               |
-   Clear Marked Nodees       |                              |
-   Add all for TSP    |   Select all the nodes for TSP algorithm |
-   Remove all for TSP |   Remvoe selection for all nodes for TSP algorithm      |
-   
+
    
    
    **Algorithms Menu**      | Explain                       |
