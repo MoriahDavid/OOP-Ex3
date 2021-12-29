@@ -4,6 +4,11 @@
 ### **This project made for directed weighted graphs algorithms and implements graphic user interface.** <br />
 <br />
 
+![image](https://user-images.githubusercontent.com/64011788/147616266-806af567-54c2-419a-b1b6-7740fc74ead8.png)
+
+<br />
+
+
 ### 🔶 Main Classes:
 
 #### :black_medium_square: Node
@@ -57,7 +62,11 @@ Graph          | Load        | Save | Shorted path | Center  | TSP |
 
 ### 🔶 GUI: <br />
 The user interface has been designed with user experience and convenience in mind in order to allow the use of all the features of the system. 
-In this GUI we can see the graph and modified it. every node has its key and every edge has its weight on it. <br />
+In this GUI we can see the graph and run the algorithms. every node has its key and every edge has its weight on it. <br />
+
+<br />
+
+![image](https://user-images.githubusercontent.com/64011788/147616198-500ccd74-5b6f-46d3-8d7a-5938c209629e.png)
 
 <br />
 
