@@ -42,15 +42,15 @@ We run preformes tests to the algorithms. for every algorithm test we define 15 
 
 Graph          | Load        | Save | Shorted path | Center  | TSP |
 -------------- | ------------ | -----|-----------| --------|-----|
-   A0          |          ms  |       | 1 ms    |    1 ms   |  15 ms |
-   A1          |        ms    |       |1 ms      |   15 ms  | 1 ms |
-   A2          |           ms |       |15 ms     | 15 ms    |    31 ms |
-   A3          |          ms  |       | 1 ms    |    62 ms |  46 ms |
-   A4          |          ms  |       | 1 ms    |    31 ms |  46 ms |
-   A5          |          ms  |       | 1 ms     |    62 ms |  62 ms |
-   1000 nodes  |          ms  |       |234 ms    | 3,078 ms |Timed Out|
-   10,000 nodes|         ms   |       |28,788 ms |Timed Out|Timed Out|
-   100,000 nodes|          ms |       |Timed Out  |Timed Out|Timed Out|
+   A0          |         1 ms  |   1 ms    | 1 ms    |    1 ms   |  15 ms |
+   A1          |       1 ms    |    1 ms  |1 ms      |   15 ms  | 1 ms |
+   A2          |          1 ms | 1 ms      |15 ms     | 15 ms    |    31 ms |
+   A3          |         1 ms  |  1 ms     | 1 ms    |    62 ms |  46 ms |
+   A4          |         1 ms  | 1 ms      | 1 ms    |    31 ms |  46 ms |
+   A5          |         1 ms  | 1 ms      | 1 ms     |    62 ms |  62 ms |
+   1000 nodes  |         46.87 ms  |  218.7 ms     |234 ms    | 3,078 ms |Timed Out|
+   10,000 nodes|        392 ms   |   2,135 ms    |28,788 ms |Timed Out|Timed Out|
+   100,000 nodes|         10,537 ms | 48,149 ms      |Timed Out  |Timed Out|Timed Out|
    1,000,000 nodes|           |       |Timed Out  |Timed Out| Timed Out |
 
 <br />
