@@ -4,16 +4,34 @@ from tkinter import filedialog as fd, messagebox
 from tkinter.messagebox import showinfo
 from tkinter import simpledialog
 
-from GraphAlgoInterface import GraphAlgoInterface
-from GraphAlgo import GraphAlgo
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+from DiGraph import DiGraph
+from draw_graph import DrawGraph
 
 
 class Gui:
-    def __init__(self, graph_algo: GraphAlgo):
+    def __init__(self, graph_algo):
         self.root = Tk()
-        self.root.geometry("400x400")
+        self.root.wm_title("Graph")
+        self.root.geometry("800x600")
+        self.root.state("zoomed")
         self.algo = graph_algo
         self._init_menu()
+        self.canvas = None
+        self.d_g = DrawGraph(self.algo.get_graph())
+        self.fig = self.d_g.draw_graph()
+
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self.root)  # A tk.DrawingArea.
+
+        self.canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
+        self.canvas.draw()
+
+        self.root.mainloop()
+
+    def reload_graph(self):
+        self.d_g.reload(self.algo.get_graph())
+        self.canvas.draw()
 
     def _init_menu(self):
         my_menu = Menu(self.root)
@@ -29,22 +47,13 @@ class Gui:
 
         graph_menu = Menu(my_menu, tearoff=0)
         my_menu.add_cascade(label="Graph", menu=graph_menu)
-        graph_menu.add_command(label="Add Node", command=self.add_node)
-        graph_menu.add_command(label="Add Edge", command=self.add_edge)
-        graph_menu.add_separator()
         graph_menu.add_command(label="Clear Marked Edges", command=self.clear_marked_edges)
-        graph_menu.add_command(label="Clear Marked Nodes", command=self.clear_marked_nodes)
-        graph_menu.add_separator()
-        graph_menu.add_command(label="Add all for TSP", command=self.add_all_for_tsp)
-        graph_menu.add_command(label="Remove all for TSP", command=self.remove_all_for_tsp)
 
         algorithm_menu = Menu(my_menu, tearoff=0)
         my_menu.add_cascade(label="Algorithms", menu=algorithm_menu)
         algorithm_menu.add_command(label="Shortest Path", command=self.shortest_path)
         algorithm_menu.add_command(label="Center", command=self.center)
         algorithm_menu.add_command(label="TSP", command=self.tsp)
-
-        self.root.mainloop()
 
     def save(self):
         files = [('Json Files', '*.json')]
@@ -63,24 +72,12 @@ class Gui:
 
         if file:
             self.algo.load_from_json(file)
-
-    def add_node(self):
-        pass
-
-    def add_edge(self):
-        pass
+            self.d_g.clear_marked()
+            self.reload_graph()
 
     def clear_marked_edges(self):
-        pass
-
-    def clear_marked_nodes(self):
-        pass
-
-    def add_all_for_tsp(self):
-        pass
-
-    def remove_all_for_tsp(self):
-        pass
+        self.d_g.clear_marked()
+        self.reload_graph()
 
     def shortest_path(self):
         answer = simpledialog.askstring("Shortest path", "Write the source node and the destination node with one space between them",
@@ -90,41 +87,84 @@ class Gui:
             if len(l) != 2:
                 messagebox.showerror("Wrong input", "Choose source and destination node")
                 return
+            try:
+                src = int(l[0])
+                dst = int(l[1])
+            except ValueError:
+                messagebox.showerror("Wrong input", "Choose source and destination node")
+                return
 
-            src = int(l[0])
-            dst = int(l[1])
             if self.algo.get_graph().get_all_v().get(src) is None or self.algo.get_graph().get_all_v().get(dst) is None:
                 messagebox.showerror("Wrong input", "Nodes don't exist on the graph")
                 return
             r = self.algo.shortest_path(src, dst)
 
-            # TODO: mark the edges on r[1]
+            l = []
+            for i in range(len(r[1])-1):
+                src = r[1][i]
+                dst = r[1][i+1]
+                l.append((src,dst))
+
+            self.d_g.marked_e = l
+            self.reload_graph()
 
             showinfo(
                 title='shorted Path',
                 message='The length is: ' + str(r[0])
             )
 
-
     def center(self):
         r = self.algo.centerPoint()
         showinfo(
             title='center',
-            message='The center is: ' + r
+            message=f'The center is: {r[0]} \nlen: {r[1]}'
         )
 
     def tsp(self):
-        showinfo(
-            title='TSP',
-            message='The length is: '
-        )
+        answer = simpledialog.askstring("TSP",
+                                        "Write the wanted nodes with one space between them",
+                                        parent=self.root)
+        if answer:
+            l = answer.split(" ")
+            if len(l) < 2:
+                messagebox.showerror("Wrong input", "Choose at least 2 nodes")
+                return
+            try:
+                nodes = [int(v) for v in l]
+            except ValueError:
+                messagebox.showerror("Wrong input", "Choose source and destination node")
+                return
+
+            for n in nodes:
+                if self.algo.get_graph().get_all_v().get(n) is None:
+                    messagebox.showerror("Wrong input", "Nodes don't exist on the graph")
+                    return
+
+            r = self.algo.TSP(nodes)
+
+            l = []
+            for i in range(len(r[0]) - 1):
+                src = r[0][i]
+                dst = r[0][i + 1]
+                l.append((src, dst))
+
+            self.d_g.marked_e = l
+            self.reload_graph()
+
+            showinfo(
+                title='TSP',
+                message=f'The length is: {r[1]}'
+            )
 
 
 def main():
-    algo = GraphAlgo()
+    from GraphAlgo import GraphAlgo
+    g = DiGraph.load_from_json("../data/A0.json")
+    algo = GraphAlgo(g)
     gui = Gui(algo)
 
 
 if __name__ == "__main__":
     main()
+
 

@@ -8,7 +8,8 @@ class TestGraphAlgo(TestCase):
     base_folder = os.path.join("..", "data")
     graphs = ["G1.json", "G2.json", "G3.json",
               "A0.json", "A1.json", "A2.json", "A3.json", "A4.json", "A5.json",
-              os.path.join("LCG", "1000.json"), os.path.join("LCG", "10000.json"),]
+              #os.path.join("LCG", "1000.json"), os.path.join("LCG", "10000.json"),
+              ]
 
     # All knows centers (id, weight) (None for unknown)
     centers = [(8, None), (0, None), (40, None),

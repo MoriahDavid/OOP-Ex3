@@ -45,3 +45,21 @@ class MyTestCase(unittest.TestCase):
             stop_t = time.time_ns()
             t = (stop_t - start_t)/1e+6
             print(f"TSP - '{p}' : {t} ms")
+
+    def test_load_sava(self):
+        for p in self.graphs:
+            algo = GraphAlgo()
+
+            start_t = time.time_ns()
+            self.assertTrue(algo.load_from_json(os.path.join(self.base_folder, p)))
+            stop_t = time.time_ns()
+            t = (stop_t - start_t)/1e+6
+            print(f"load - '{p}' : {t} ms")
+
+            start_t = time.time_ns()
+
+            self.assertTrue(algo.save_to_json(os.path.join(self.base_folder, "tests", p)))
+            stop_t = time.time_ns()
+            t = (stop_t - start_t) / 1e+6
+            print(f"save - '{p}' : {t} ms")
+

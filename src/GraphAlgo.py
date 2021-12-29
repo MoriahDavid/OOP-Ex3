@@ -5,7 +5,7 @@ from queue import PriorityQueue
 from GraphInterface import GraphInterface
 from GraphAlgoInterface import GraphAlgoInterface
 from DiGraph import DiGraph
-
+from Gui import Gui
 
 class GraphAlgo(GraphAlgoInterface):
 
@@ -176,7 +176,8 @@ class GraphAlgo(GraphAlgoInterface):
         Otherwise, they will be placed in a random but elegant manner.
         @return: None
         """
-        # raise NotImplementedError
+        gui = Gui(self)
+
 
 
 def main():
@@ -186,6 +187,7 @@ def main():
     print(a.shortest_path(0,10))
     # print(a.centerPoint())
     print(a.TSP([1, 5, 10]))
+    a.plot_graph()
 
 
 if __name__ == "__main__":
